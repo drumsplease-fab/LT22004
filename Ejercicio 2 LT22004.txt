@@ -1,0 +1,33 @@
+section .data
+    num1 dd 5
+    num2 dd 3
+
+section .text
+    global _start
+
+_start:
+    mov eax, [num1]
+    imul eax, [num2]
+
+    mov edx, eax
+    call print_int
+
+    mov eax, 1
+    int 0x80
+
+print_int:
+
+    push ebx
+    push ecx
+    push edx
+
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, edx
+    mov edx, 10
+    int 0x80
+
+    pop edx
+    pop ecx
+    pop ebx
+    ret
